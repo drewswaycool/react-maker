@@ -7,7 +7,7 @@ import styledArrowComponent from './templates/styledArrowComponent';
 import styledFile from './templates/styledFile';
 
 export default async (
-  componentName: string,
+  newComponentName: string,
   { dir, styled }: { dir?: string; styled?: boolean }
 ) => {
   const COMPONENT_FILE_NAME = "index.tsx";
@@ -29,16 +29,16 @@ export default async (
   if (dir[dir.length - 1] !== "/") {
     dir = dir + "/";
   }
-  const dirWithFileName = dir + componentName;
+  const dirWithFileName = dir + newComponentName;
   const filePath = (fileName: string) => dirWithFileName + "/" + fileName;
 
   createDir(dirWithFileName);
 
   if (styled) {
-    await createFile(filePath(COMPONENT_FILE_NAME), styledArrowComponent(componentName));
+    await createFile(filePath(COMPONENT_FILE_NAME), styledArrowComponent(newComponentName));
     await createFile(filePath(STYLED_FILE_NAME), styledFile());
   } else {
-    await createFile(filePath(COMPONENT_FILE_NAME), arrowComponent(componentName));
+    await createFile(filePath(COMPONENT_FILE_NAME), arrowComponent(newComponentName));
   }
 
   setTimeout(() => {
